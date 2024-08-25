@@ -70,7 +70,7 @@ const Home: React.FC = () => {
             Hunter Tinney
           </h1>
           <div className={`flex justify-center space-x-4 mt-4 transition-opacity duration-300 ease-in-out ${isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-            <IconLink Icon={Linkedin} href="https://linkedin.com/in/htinney" label="Linkedin" />
+            <IconLink Icon={Linkedin} href="https://linkedin.com/in/huntertinney" label="Linkedin" />
             <IconLink Icon={Palette} href="https://palette.tools" label="Palette" />
             <IconLink Icon={Github} href="https://github.com/htinney" label="github" />
             <IconLink Icon={Twitter} href="https://x.com/hunter_in_irl" label="Twitter" />
