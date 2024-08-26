@@ -1,16 +1,16 @@
 "use client";
-import React, { useCallback, useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Palette, Twitter, LucideIcon } from 'lucide-react';
 
 interface ColorOrbProps {
   color: string;
   animationClass: string;
-  translate: string;
 }
 
-const ColorOrb: React.FC<ColorOrbProps> = ({ color, animationClass, translate }) => (
+const ColorOrb: React.FC<ColorOrbProps> = ({ color, animationClass }) => (
   <div
-    className={`absolute w-[300px] h-[300px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] ${color} ${animationClass} mix-blend-screen ${translate}`}
+    className={`absolute inset-0 rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] ${color} ${animationClass} mix-blend-screen`}
   ></div>
 );
 
@@ -34,6 +34,7 @@ const IconLink: React.FC<IconLinkProps> = ({ Icon, href, label }) => (
 
 const Home: React.FC = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -45,31 +46,31 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <main className="flex flex-col min-h-screen bg-black">
-      <div className="flex-grow-[2]"></div>
-      <div className="relative flex-shrink-0 group">
-        <div className="w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] mx-auto flex items-center justify-center transition-transform duration-300 ease-in-out group-hover:scale-110 md:scale-120">
+    <main className="flex items-center justify-center min-h-screen bg-black overflow-hidden">
+      <div
+        className="relative w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px]"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className={`absolute inset-0 transition-transform duration-300 ease-in-out ${isHovered ? 'scale-110' : ''}`}>
           <ColorOrb
             color="bg-[#FF0000]"
             animationClass="animate-[rotate_20s_linear_infinite,morph_10s_ease-in-out_infinite_alternate]"
-            translate="-translate-x-[30px] -translate-y-[30px] md:-translate-x-[50px] md:-translate-y-[50px] lg:-translate-x-[75px] lg:-translate-y-[75px]"
           />
           <ColorOrb
             color="bg-[#00FF00]"
             animationClass="animate-[rotate_25s_linear_infinite_reverse,morph_15s_ease-in-out_infinite_alternate]"
-            translate="translate-x-[30px] -translate-y-[30px] md:translate-x-[50px] md:-translate-y-[50px] lg:translate-x-[75px] lg:-translate-y-[75px]"
           />
           <ColorOrb
             color="bg-[#0000FF]"
             animationClass="animate-[rotate_22s_linear_infinite,morph_12s_ease-in-out_infinite_alternate]"
-            translate="translate-y-[30px] md:translate-y-[50px] lg:translate-y-[75px]"
           />
         </div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10">
-          <h1 className="text-black text-xl md:text-3xl lg:text-4xl font-bold mix-blend-difference mb-4 text-nowrap">
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+          <h1 className="text-black text-xl md:text-3xl lg:text-4xl font-bold mix-blend-difference mb-4 whitespace-nowrap">
             Hunter Tinney
           </h1>
-          <div className={`flex justify-center space-x-4 mt-4 transition-opacity duration-300 ease-in-out ${isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+          <div className={`flex justify-center space-x-4 mt-4 transition-opacity duration-300 ease-in-out ${isMobile || isHovered ? 'opacity-100' : 'opacity-0'}`}>
             <IconLink Icon={Linkedin} href="https://linkedin.com/in/huntertinney" label="Linkedin" />
             <IconLink Icon={Palette} href="https://palette.tools" label="Palette" />
             <IconLink Icon={Github} href="https://github.com/htinney" label="github" />
@@ -77,7 +78,6 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex-grow-[4]"></div>
     </main>
   );
 };
