@@ -46,9 +46,9 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-black overflow-hidden">
+    <main className="relative flex min-h-screen bg-black overflow-hidden">
       <div
-        className="relative w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px]"
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px]"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
